@@ -1,0 +1,23 @@
+<app-card>
+  <section id="tasks">
+    <header>
+      <h2>{{ name }}'s Tasks</h2>
+
+      <menu>
+        <button (click)="onClick()">
+          @if (clicked) { Close} @else { Add Task }
+        </button>
+      </menu>
+    </header>
+    <ul>
+      @for (task of SelectedUserTasks; track task.id){
+      <li>
+        <app-task [task]="task" (complete)="onCompleteTask($event)"></app-task>
+      </li>
+      }
+    </ul>
+    @if(clicked == true){
+    <app-add-task (cancel)="onClick()" (add)="onAddTask($event)"></app-add-task>
+    }
+  </section>
+</app-card>
