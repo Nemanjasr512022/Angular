@@ -28,7 +28,7 @@ export class UserTaskComponent {
     this.taskService.addTask(taskData, this.id);
     this.clicked = false;
   }
-  onCompleteTask(id: string) {
-    this.taskService.removeTask;
-  }
+  // onCompleteTask(id: string) {
+  //   console.log('component', id);
+  // }
 }

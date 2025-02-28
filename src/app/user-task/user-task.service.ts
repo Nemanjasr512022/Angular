@@ -3,7 +3,7 @@ import { addTask, task } from '../task/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private dummyTasks = [
+  dummyTasks = [
     {
       id: 't1',
       userId: 'u1',
@@ -29,6 +29,12 @@ export class TaskService {
     },
   ];
 
+  constructor() {
+    const tasks = localStorage.getItem('tasks');
+    if (tasks) {
+      this.dummyTasks = JSON.parse(tasks);
+    }
+  }
   getUserTasks(userId: string) {
     return this.dummyTasks.filter((task) => userId == task.userId);
   }
@@ -40,8 +46,15 @@ export class TaskService {
       dueDate: taskData.date,
       userId: userId,
     });
+    this.saveTask();
   }
-  removeTask(id: string) {
+  removeTask(id?: string) {
+    console.log(id);
     this.dummyTasks = this.dummyTasks.filter((task) => task.id !== id);
+    this.saveTask();
+  }
+
+  private saveTask() {
+    localStorage.setItem('tasks', JSON.stringify(this.dummyTasks));
   }
 }
